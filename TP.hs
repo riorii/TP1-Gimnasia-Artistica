@@ -32,8 +32,12 @@ entradaEnCalor = (2, [rolAdelante 10,rolAdelante 10,medialuna,medialuna,medialun
 rutinaDiaria :: Rutina
 rutinaDiaria = (3, [rolAdelante 20,saltoConSoga 30,vertical,medialuna,saltoConSoga 10])
 
---entrenar :: Gimnasta -> Rutina -> Gimnasta
---entrenar (Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios) (repeticiones,ejercicios) | repeticiones > 0 = 							
+entrenar :: Gimnasta -> Rutina -> Gimnasta
+entrenar (Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios) (repeticiones ,[]) = Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios
+entrenar (Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios) (repeticiones,(x:xs)) | repeticiones == 1 = entrenar (x (Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios)) (repeticiones,xs)
+                                                                                                   | repeticiones > 1 = entrenar (Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios) (1,take ((length (x:xs))*repeticiones) (cycle (x:xs)))
+                                                                                                   | otherwise = Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios
+
 
 --5)
 h :: Eq a1 => a1 -> (a -> a1) -> [a] -> Bool
