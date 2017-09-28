@@ -38,6 +38,11 @@ entrenar (Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios) (re
                                                                                                    | repeticiones > 1 = entrenar (Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios) (1,take ((length (x:xs))*repeticiones) (cycle (x:xs)))
                                                                                                    | otherwise = Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios
 
+nivelDeFortaleza :: Gimnasta -> Int
+nivelDeFortaleza (Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios) = energia+fuerza
+
+tienePotencial :: Int -> Gimnasta -> Bool
+tienePotencial n (Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios) = nivelDeFortaleza (entrenar (entrenar (Gimnasta nombre energia equilibrio flexibilidad fuerza ejercicios) rutinaDiaria) (1,ejercicios)) > n
 
 --5)
 h :: Eq a1 => a1 -> (a -> a1) -> [a] -> Bool
